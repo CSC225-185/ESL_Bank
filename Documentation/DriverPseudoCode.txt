@@ -1,0 +1,514 @@
+BEGIN runBankTest
+	Define variable for menu option
+	LOOP until user selects the option to exit the program
+		Define variable for data validation
+		
+		LOOP until the user makes a valid selection or asks to exit the program
+			
+			DisplayMenu
+			
+			IF no option selected
+				Continue to display menu
+			END-IF
+
+			IF the option selected is invalid
+				Continue to display menu
+			END-IF
+
+			IF the option selected is valid
+				THEN
+					Test if the arraylist is empty
+					
+					IF the arraylist is empty
+						THEN
+							Ask the user if they want to add a customer
+							
+							IF the user wants to add a customer
+								THEN
+									Go to add new user menu option
+							ELSE
+								Return the user to the main menu
+					ELSE-IF the arraylist is empty and the user asked for a report
+						THEN
+							Display a message stating there are no records
+					ELSE
+						Continue to next logic evaluation
+					END-IF
+			ELSE
+				Continue displaying the menu
+			END-IF
+			
+		END-LOOP
+		
+		IF the menu option selected is NOT one of the reporting options
+			THEN			
+				LOOP until the user provides valid input or clicks cancel
+			
+					Ask for the customer name
+					
+					IF the customer DID NOT clicked the cancel key
+						THEN
+						IF the customer wants to add a new customer
+							THEN 
+							IF the new customer exists in the database
+								THEN
+									Inform the user that the customer already exists and ask if they
+									they want to create another customer
+									
+									IF the customer does not want to add another customer
+										THEN
+											Return to the main menu
+									END-IF
+								ELSE
+									Continue to the next logic evaluation
+							END-IF
+						
+						ELSE-IF the customer DOES NOT exists in the database AND wants to make 
+								a deposit or a withdrawal
+							THEN
+								Display a message stating that the user does not exist
+							ELSE
+								Continue to next logic evaluation
+							END-IF
+						END-IF
+					ELSE-IF the customer didn't make any valid selection
+						Display the main menu					
+					END-IF
+				END-LOOP
+				
+				CASE (menuOption)
+				
+					CASE 1
+						Launch make deposit method
+					CASE 2
+						Launch make withdrawal method
+					CASE 3
+						Launch create account method
+					CASE 4
+						Launch delete account method
+				END-CASE
+				
+			ELSE-IF The customer wants to print a report
+			
+				Sort the database and display the report
+				
+			ELSE-IF The customer wanted to do system maintenance
+				LOOP until the user makes a valid selection or clicks cancel
+					Display the maintenance window
+					
+					IF the user does not make a selection
+						THEN
+							Go back to main menu
+					END-IF
+						
+					IF the user makes a valid selection
+						THEN
+							Go to next logic evaluation
+					END-IF
+				END-LOOP
+				
+				CASE (menuOption)
+					CASE 1
+						Read the file into memory
+					CASE 2
+						Write memory to file
+				END-CASE
+	END-LOOP
+					
+END runBankTest
+
+makeDeposit
+
+BEGIN makeDeposit (x)
+
+	Ask the user for the deposit amount for customer x
+	
+	IF the user does not click cancel
+		THEN
+	
+			Read in the deposit amount
+			
+			IF the deposit amount is negative
+				THEN
+					Display a message informing the user of the mistake
+				ELSE
+					Add the amount to the balance of customer x
+					Add interest to the balance of customer x
+					Display a summary with the balance before and after interest is added
+			END-IF
+	
+	END-IF
+
+END makeDeposit
+
+makeWithdrawal
+
+BEGIN makeWithdrawal (x)
+
+	Ask the user for the withdrawal amount for customer x
+	
+	IF the user does not click cancel
+		THEN
+			
+			Read the withdrawal amount
+			
+			IF the withdrawal amount is negative
+				THEN
+					Display a message informing the user of the mistake
+			ELSE-IF the withdrawal amount is more than the balance of the customer
+				THEN
+					Display a message informing the user of the mistake
+				ELSE
+					Get the balance of the user before withdrawal
+					Add interest to the balance
+					Display a summary with the balance before and after interest is added
+			END-IF
+			
+					
+	END-IF
+
+END makeWithdrawal
+
+createAccount
+
+BEGIN createAccount (x)
+
+	Get customer number from customer name x
+	
+	IF the user does not click cancel
+		THEN
+			
+			Ask the user for the opening balance
+			
+			IF the user does not click cancel
+				THEN
+				
+					Ask the user for the telephone number
+					
+					IF the user does not click cancel
+						THEN
+						
+							Create a new customer object with the supplied information
+							
+							Display summary of new user that will be created
+						
+					END-IF
+				
+			END-IF
+			
+	END-IF
+	
+END createAccount
+
+deleteAccount
+
+BEGIN deleteAccount (x)
+
+	Get customer number from customer name x
+	
+	IF the user exists
+		THEN
+			Define a message to be displayed for confirmation
+			
+			IF the user confirms the deletion
+				THEN
+					Delete the customer
+					Display a confirmation of deletion message
+			END-IF
+		ELSE
+			Display a message stating that the user does not exist
+	END-IF
+
+END deleteAccount
+
+writeDatabaseFile
+
+BEGIN writeDatabaseFile
+
+	Define the File, stream and writer objects
+	
+	IF the output file has not been defined
+		THEN
+			Inform the user that the output file has not been defined
+		ELSE
+			IF the output file exists
+				THEN
+					Ask the user if they want to backup the old file
+					
+					IF the user confirms
+						THEN
+							create a backup of the file
+					END-IF
+			END-IF
+			
+			Write the records from the arraylist to the file one at a time
+	END-IF
+	
+	IF the writer is still opening
+		THEN
+			Close the writer
+	END-IF
+
+END writeDatabaseFile
+
+writeLogFile
+
+BEGIN writeLogFile (x, y)
+
+	Define the File, stream and writer objects
+	
+	CASE (x) 
+		Define log file to write based on x
+	END-CASE
+	
+	IF the output file has not been defined
+		THEN
+			Inform the user that the log file has not been defined
+		ELSE			
+			IF the log file exists
+				THEN
+					Append to the existing file
+				ELSE
+					Create a new file
+			END-IF	
+	END-IF
+	
+	IF the writer is still opening
+		THEN
+			Close the writer
+	END-IF
+
+END writeLogFile
+
+readFile
+
+BEGIN readFile
+
+	Define input file, file reader and buffered reader
+	
+	IF the input file has not been defined
+		THEN
+			Inform the user that the input file has not been defined
+		ELSE
+			IF the input file exists
+				THEN
+					LOOP
+						Read lines one at a time
+						
+						IF there is an error
+							THEN
+								Write the error to the log file
+						END-IF
+						
+						Write the record to the file
+					END-LOOP
+			END-IF
+	END-IF
+	
+	IF the writer is still opening
+		THEN
+			Close the writer
+	END-IF
+
+END readFile
+
+displayInputMessage
+
+BEGIN displayInputMessage (x)
+
+	CASE (x)
+		Define output message based on case request x
+	END-CASE
+	
+	LOOP
+		Request input value from user
+		
+		IF the value is valid
+			THEN
+				IF the requested value is of type double
+					THEN
+						Test if the value is a double
+					
+						IF the value is not of type double
+							THEN
+								Display notification of incorrect data provided
+						END-IF
+				END-IF
+		ELSE-IF the value is the cancel button
+			Cancel and go back to main menu
+		END-IF
+		
+	END-LOOP when valid value is entered
+	
+	Return input value back to calling method			
+
+END displayInputMessage
+
+displayMessage
+
+BEGIN displayMessage (x)
+
+	CASE (x)
+		Deifne the output message based on x
+	END-CASE
+
+END displayMessage
+
+showYesNoMessage
+
+BEGIN showYesNoMessage (x)
+
+	CASE (x)
+		Define the output message based on x
+	END-CASE
+	
+	Display the output message
+	
+	Return the result of the message to calling method
+
+END showYesNoMessage
+
+displayTransactionSummary
+
+BEGIN displayTransactionSummary (x)
+
+	CASE (x)
+		Define the transaction summary based on x
+	END-CASE
+
+END displayTransactionSummary
+
+displayTransactionError
+
+BEGIN displayTransactionError (x)
+
+	CASE (x)
+		Define the transaction error based on x
+	END-CASE
+
+END displayTransactionError
+
+showErrorMessage
+
+BEGIN showErrorMessage
+
+	CASE (x)
+		Define the error message based on x
+	END-CASE
+
+END showErrorMessage
+
+displayMessageFrame
+
+BEGIN displayMessageFrame (x)
+
+	Display the message defined in x from calling methods
+
+END displayMessageFrame
+
+displayYesNoOption
+
+BEGIN displayYesNoOption (x)
+
+	Display the option defined in x from calling methods
+
+	Return result
+
+END displayYesNoOption
+
+displayErrorFrame
+
+BEGIN displayErrorFrame (x, y)
+
+	Display the error frame with message x and title y
+
+END displayErrorFrame
+
+showExceptionMessage
+
+BEGIN showExceptionMessage (x, y)
+
+	Isolate the exception by dissasembling the exeception passed (x)
+	
+	CASE (isolated message)
+		Display an exception message based on information extraced from x and y for traceback information
+	END-CASE
+		
+END showExceptionMessage
+
+setFile
+
+BEGIN setFile (x)
+
+	Set the file object with x
+	
+	Return File object
+	
+END setFile
+
+setFilePath (x)
+
+BEGIN setFilePath
+
+	Set the file path object with x
+	
+	Return Path object
+
+END setFilePath
+
+formatFullyQualifiedPath
+
+BEGIN formatFullyQualifiedPath (x)
+
+	Format fully qualified path x for use by JAVA
+	
+	Return formatted path
+
+END formatFullyQualifiedPath
+
+fileExists
+
+BEGIN fileExists
+
+	Test if file exists
+	
+	Return true if file exists or false if file does not exist
+
+END fileExists
+
+getNewPath
+
+BEGIN getNewPath (x)
+
+	Get relative path of file x
+	Interpret fully qualified path
+	
+	Format the fully qualified path string
+	
+	Return formatted path string
+		
+END getNewPath
+
+backupFile
+
+BEGIN backupFile (x)
+
+	Set the source path for file x
+	Set the destination path for file x
+	
+	Create the new file name for x with date and time of backup
+	
+	Create backup of old file
+
+END backupFile
+
+getDateTime
+
+BEGIN getDateTime ()
+
+	Get and format the current date and time
+	
+	Return current date and time to calling method
+
+END getDateTime
+

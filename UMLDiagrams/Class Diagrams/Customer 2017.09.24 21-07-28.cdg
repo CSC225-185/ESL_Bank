@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Customer">
+  <ClassDiagramComponents>
+    <Class name="Customer" package="esl_bank" visibility="public" isFinal="true" xPosition="179.0" yPosition="29.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="idNumber" type="String" visibility="private"/>
+        <Field name="phoneNumber" type="String" visibility="private"/>
+        <Field name="balance" type="double" visibility="private"/>
+        <Field name="INTEREST" type="double" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="TRANSACTION_FEE" type="double" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="CURRENCY_FORMAT" type="DecimalFormat" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="customerCounter" type="int" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="nameInput"/>
+          <Argument type="String" name="idNumberInput"/>
+          <Argument type="double" name="balanceInput"/>
+          <Argument type="String" name="phoneNumberInput"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="addCustomer" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="removeCustomer" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="getNumberOfCustomers" returnType="int" visibility="public" isStatic="true"/>
+        <Method name="setName" returnType="void" visibility="public">
+          <Argument type="String" name="nameInput"/>
+        </Method>
+        <Method name="getCustomerName" returnType="String" visibility="public"/>
+        <Method name="setID" returnType="void" visibility="public">
+          <Argument type="String" name="idNumberInput"/>
+        </Method>
+        <Method name="getCustomerNumber" returnType="String" visibility="public"/>
+        <Method name="setPhoneNumber" returnType="void" visibility="public">
+          <Argument type="String" name="inputPhoneNumber"/>
+        </Method>
+        <Method name="getPhoneNumber" returnType="String" visibility="public"/>
+        <Method name="setBalance" returnType="void" visibility="public">
+          <Argument type="double" name="inputBalance"/>
+        </Method>
+        <Method name="getBalance" returnType="double" visibility="public"/>
+        <Method name="addInterest" returnType="void" visibility="public"/>
+        <Method name="withdraw" returnType="double" visibility="public">
+          <Argument type="double" name="withdrawalAmount"/>
+        </Method>
+        <Method name="deposit" returnType="double" visibility="public">
+          <Argument type="double" name="depositAmount"/>
+        </Method>
+        <Method name="deleteCustomer" returnType="void" visibility="public" isStatic="true">
+          <Argument type="List&lt;Customer&gt;" name="custArray"/>
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="nameSort" returnType="void" visibility="public" isStatic="true">
+          <Argument type="List&lt;Customer&gt;" name="custArray"/>
+        </Method>
+        <Method name="findIndex" returnType="int" visibility="public" isStatic="true">
+          <Argument type="List&lt;Customer&gt;" name="custArray"/>
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="compareTo" returnType="int" visibility="public">
+          <Argument type="Customer" name="customer"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="esl_bank.Customer" target="esl_bank.Customer" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

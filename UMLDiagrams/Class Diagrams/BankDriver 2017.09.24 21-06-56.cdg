@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="BankDriver">
+  <ClassDiagramComponents>
+    <Class name="BankDriver" package="esl_bank" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="CUSTOMER" type="List&lt;Customer&gt;" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="INPUT_FILENAME" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="DATABASE_FILENAME" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="LOG_FILENAME" type="String" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="runBankTest" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="makeDeposit" returnType="void" visibility="private" isStatic="true">
+          <Argument type="int" name="customerIndex"/>
+        </Method>
+        <Method name="makeWithdrawal" returnType="void" visibility="private" isStatic="true">
+          <Argument type="int" name="customerIndex"/>
+        </Method>
+        <Method name="createAccount" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="customerName"/>
+        </Method>
+        <Method name="deleteAccount" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="customerName"/>
+        </Method>
+        <Method name="writeDatabaseFile" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="writeLogFile" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="fileToWrite"/>
+          <Argument type="String" name="errorToLog"/>
+        </Method>
+        <Method name="readFile" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="displayInputMessage" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="messageRequest"/>
+        </Method>
+        <Method name="displayMessage" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="messageRequest"/>
+        </Method>
+        <Method name="showYesNoMessage" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="String" name="messageRequest"/>
+        </Method>
+        <Method name="displayTransactionSummary" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="transaction"/>
+          <Argument type="int" name="customerIndex"/>
+          <Argument type="double" name="valueOne"/>
+          <Argument type="double" name="valueTwo"/>
+        </Method>
+        <Method name="displayTransactionError" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="transactionError"/>
+          <Argument type="String[]" name="transactionDetails"/>
+        </Method>
+        <Method name="showErrorMessage" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="errorIndex"/>
+          <Argument type="String" name="tracebackInformation"/>
+        </Method>
+        <Method name="displayMessageFrame" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="messageRequest"/>
+        </Method>
+        <Method name="displayYesNoOptionFrame" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="String" name="messageRequest"/>
+          <Argument type="String" name="frameTitle"/>
+        </Method>
+        <Method name="displayErrorFrame" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="errorMessage"/>
+          <Argument type="String" name="errorTitle"/>
+        </Method>
+        <Method name="showExceptionMessage" returnType="void" visibility="private" isStatic="true">
+          <Argument type="Exception" name="e"/>
+          <Argument type="String" name="tracebackInformation"/>
+        </Method>
+        <Method name="setFile" returnType="File" visibility="private" isStatic="true">
+          <Argument type="String" name="filename"/>
+        </Method>
+        <Method name="setFilePath" returnType="Path" visibility="private" isStatic="true">
+          <Argument type="File" name="filename"/>
+        </Method>
+        <Method name="formatFullyQualifiedPath" returnType="String" visibility="private" isStatic="true">
+          <Argument type="Path" name="filePath"/>
+        </Method>
+        <Method name="fileExists" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="String" name="filename"/>
+        </Method>
+        <Method name="getNewPath" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="filename"/>
+        </Method>
+        <Method name="backupFile" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="filename"/>
+        </Method>
+        <Method name="getDateTime" returnType="String" visibility="private" isStatic="true"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
